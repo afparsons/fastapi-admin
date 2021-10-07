@@ -178,19 +178,26 @@ class Json(Input):
         help_text: Optional[str] = None,
         null: bool = False,
         options: Optional[dict] = None,
+        json: Optional[Any] = None,
     ):
         """
-        options config to jsoneditor, see https://github.com/josdejong/jsoneditor
-        :param options:
+        :param options: Constructor options for the JSONEditor as described in
+            https://github.com/josdejong/jsoneditor/blob/master/docs/api.md#configuration-options
+
+        :param json: Pre-sets JSON data in the editor.
         """
         super().__init__(null=null, help_text=help_text)
         if not options:
             options = {}
-        self.context.update(options=options)
+        if json is None:
+            json = {}
+        self.context.update(options=options, json=json)
 
     async def render(self, request: Request, value: Any):
         if value:
             value = json.dumps(value)
+        else:
+            value = self.context['json']
         return await super().render(request, value)
 
 

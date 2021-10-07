@@ -24,6 +24,7 @@
 <script>
     const container = document.getElementById("{{name}}")
     let options = {{options|safe}};
+    let json = {{json|safe}};
     if (Object.keys(options).length === 0) {
         options = {
             modes: ['tree', 'view', 'form', 'code', 'text', 'preview'],
@@ -32,7 +33,7 @@
     options.onChangeText = function (json) {
         $('input[name={{ name }}]').val(json);
     }
-    const editor = new JSONEditor(container, options)
+    const editor = new JSONEditor(container, options, json)
     {% if value %}
         editor.set({{ value|safe }})
     {% endif %}
