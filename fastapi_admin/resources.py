@@ -202,7 +202,7 @@ class Model(Resource):
         fields_map = cls.model._meta.fields_map
         field = fields_map.get(field_name)
         if not field:
-            raise NoSuchFieldFound(f"Can't found field '{field_name}' in model {cls.model}")
+            raise NoSuchFieldFound(f"Can't find field '{field_name}' in model {cls.model}")
         label = field_name
         null = field.null
         placeholder = field.description or ""
